@@ -31,7 +31,7 @@ resource "azurerm_public_ip" "snipe-it" {
 
 }
 
-data "azurerm_public_ip" "public_ip" {
+data "azurerm_public_ip" "vm_public_ip" {
   name                = azurerm_public_ip.snipe-it.name
   resource_group_name = azurerm_resource_group.snipe-it.name
 }
@@ -128,23 +128,21 @@ resource "azurerm_linux_virtual_machine" "snipe-it" {
 
 }
 
-
 locals {
   data_inputs = <<-EOT
-   #!/bin/bash
-   sudo ufw allow 80/tcp
-   sudo ufw allow 443/tcp
-   sudo ufw reload
+    #!/bin/bash
 
-   git clone https://github.com/snipe/snipe-it
+    # Step 1: Clone the Snipe-IT repository
+    git clone https://github.com/snipe/snipe-it
 
-   cd snipe-it
+    # Step 2: Change directory to the Snipe-IT folder
+    cd snipe-it
 
-   ./install.sh <<EOF
-  ${data.azurerm_public_ip.public_ip.ip_address}
-   y
-   n
-   EOF
-EOT
-
+    # Step 3: Run the install.sh script
+    ./install.sh <<EOF
+    ${data.azurerm_public_ip.vm_public_ip.ip_address}
+    y
+    n
+    EOF
+  EOT
 }
