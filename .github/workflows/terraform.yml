@@ -10,12 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3  # Check out repository code
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CRED }}
-
       - name: Debug Secrets
         run: |
           echo "CLIENT_ID: ${{ secrets.CLIENT_ID }}"
