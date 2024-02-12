@@ -9,6 +9,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3  # Check out repository code
+      - name: Debug Secrets
+        run: |
+            echo "CLIENT_ID: ${{ secrets.CLIENT_ID }}"
+            echo "CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}"
+            echo "TENANT_ID: ${{ secrets.TENANT_ID }}"
+
 
       - name: Azure Login
         run: az login --service-principal -u ${{ secrets.CLIENT_ID }} -p ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }}
