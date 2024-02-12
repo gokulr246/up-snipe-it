@@ -16,8 +16,8 @@ jobs:
             echo "TENANT_ID: ${{ secrets.TENANT_ID }}"
 
 
-      - name: Azure Login
-        run: az login --service-principal -u ${{ secrets.CLIENT_ID }} -p ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }}
+      # - name: Azure Login
+      #   run: az login --service-principal -u ${{ secrets.CLIENT_ID }} -p ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }}
 
       - name: Setup Terraform  
         uses: hashicorp/setup-terraform@v2  # Official Terraform setup action
